@@ -23,7 +23,7 @@ sudo apt-get install linux-libc-dev-arm64-cross libc6-arm64-cross libc6-dev-arm6
 
 ## 编译运行
 
-### arm机器上编译 
+### ARM机器上编译 
 
 #### 编译并安装openssl
 ```bash
@@ -41,7 +41,7 @@ cd arm_adb
 ./configure --includedir=/tmp/openssl/include --libdir=/tmp/openssl/lib
 make
 ```
-### arm机器上编译（adb v1.0.40）
+### ARM机器上编译（adb v1.0.40）
 
 #### 安装golang:
 
