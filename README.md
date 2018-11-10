@@ -1,12 +1,12 @@
 # arm_adb
 
-通过automake源结构移植到ARM的Android adb
+ARM的Android adb源码，基于automake
 
 [![捐赠](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q8BH5C48PA9SC)
 
-## 安装依赖
+## 配置编译环境
 
-> 注: 请确保你的gcc/g++版本大于4.9
+> 注: 无论是本地编译还是交叉编译，请确保你的gcc/g++版本大于4.9
 
 ```bash
 sudo apt-get install libtool automake
@@ -23,9 +23,9 @@ sudo apt-get install linux-libc-dev-arm64-cross libc6-arm64-cross libc6-dev-arm6
 
 ## 编译运行
 
-### 本地编译 
+### arm机器上编译 
 
-#### 编译openssl
+#### 编译并安装openssl
 ```bash
 git clone https://github.com/qhuyduong/openssl-1.0.2l.git
 cd openssl-1.0.2l/
@@ -41,14 +41,14 @@ cd arm_adb
 ./configure --includedir=/tmp/openssl/include --libdir=/tmp/openssl/lib
 make
 ```
-### 本地编译adb v1.0.40
+### arm机器上编译（adb v1.0.40）
 
 #### 安装golang:
 
 ```bash
 apt install golang
 ```
-#### 下载并编译boringssl:
+#### 编译并安装boringssl:
 ```bash
 git clone https://github.com/qhuyduong/boringssl.git
 cd boringssl
@@ -57,7 +57,7 @@ cmake -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=/tmp/openssl ../
 make
 make install
 ```
-#### 下载并编译arm_adb:
+#### 编译arm_adb:
 ```bash
 git clone https://github.com/qhuyduong/arm_adb -b v1.0.40
 cd arm_adb
@@ -66,7 +66,7 @@ make
 ```
 
 ### 交叉编译
-#### 交叉编译Openssl
+#### 编译并安装Openssl
 ```bash
 git clone https://github.com/qhuyduong/openssl-1.0.2l.git
 cd openssl-1.0.2l/
@@ -75,7 +75,7 @@ make && make install
 cd -
 ```
 
-#### 交叉编译arm_adb
+#### 编译arm_adb
 ```bash
 git clone https://github.com/qhuyduong/arm_adb
 cd arm_adb
