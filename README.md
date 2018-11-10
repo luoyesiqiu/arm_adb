@@ -1,68 +1,96 @@
 # arm_adb
-Android's adb ported to ARM with automake source structures
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q8BH5C48PA9SC)
+通过automake源结构移植到ARM的Android adb
 
-## Prerequisites
-NOTE: Please make sure you are using navite/cross gcc/g++ >= 4.9
+[![捐赠](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q8BH5C48PA9SC)
+
+## 安装依赖
+
+> 注: 请确保你的gcc/g++版本大于4.9
+
 ```bash
-$ sudo apt-get install libtool automake
+sudo apt-get install libtool automake
 ```
-For cross-compiling:
+交叉编译环境:
 ### ARM
 ```bash
-$ sudo apt-get install linux-libc-dev-armhf-cross libc6-armhf-cross libc6-dev-armhf-cross
+sudo apt-get install linux-libc-dev-armhf-cross libc6-armhf-cross libc6-dev-armhf-cross
 ```
 ### AARCH64
 ```bash
-$ sudo apt-get install linux-libc-dev-arm64-cross libc6-arm64-cross libc6-dev-arm64-cross
+sudo apt-get install linux-libc-dev-arm64-cross libc6-arm64-cross libc6-dev-arm64-cross
 ```
 
-## How to build and run
-### Native compiling
-#### Native-compile openssl
+## 编译运行
+
+### 本地编译 
+
+#### 编译openssl
 ```bash
-$ git clone https://github.com/qhuyduong/openssl-1.0.2l.git
-$ cd openssl-1.0.2l/
-$ ./Configure --prefix=/tmp/openssl os/compiler:gcc
-$ make && make install
-$ cd -
+git clone https://github.com/qhuyduong/openssl-1.0.2l.git
+cd openssl-1.0.2l/
+./Configure --prefix=/tmp/openssl os/compiler:gcc
+make && make install
+cd -
 ```
 
-#### Native-compile arm_adb
+#### 编译arm_adb
 ```bash
-$ git clone https://github.com/qhuyduong/arm_adb
-$ cd arm_adb
-$ ./configure --includedir=/tmp/openssl/include --libdir=/tmp/openssl/lib
-$ make
+git clone https://github.com/qhuyduong/arm_adb
+cd arm_adb
+./configure --includedir=/tmp/openssl/include --libdir=/tmp/openssl/lib
+make
 ```
+### 本地编译adb v1.0.40
 
-### Cross-compiling
-#### Cross-compile Openssl
+#### 安装golang:
+
 ```bash
-$ git clone https://github.com/qhuyduong/openssl-1.0.2l.git
-$ cd openssl-1.0.2l/
-$ ./Configure --prefix=/tmp/openssl os/compiler:$TOOLCHAIN_PREFIX-gcc
-$ make && make install
-$ cd -
+apt install golang
 ```
-
-#### Cross-compile arm_adb
+#### 下载并编译boringssl:
 ```bash
-$ git clone https://github.com/qhuyduong/arm_adb
-$ cd arm_adb
-$ ./configure --host=$TOOLCHAIN_PREFIX --includedir=/tmp/openssl/include --libdir=/tmp/openssl/lib
-$ make
+git clone https://github.com/qhuyduong/boringssl.git
+cd boringssl
+mkdir build && cd build
+cmake -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=/tmp/openssl ../
+make
+make install
+```
+#### 下载并编译arm_adb:
+```bash
+git clone https://github.com/qhuyduong/arm_adb -b v1.0.40
+cd arm_adb
+./configure --includedir=/tmp/openssl/include --libdir=/tmp/openssl
+make
 ```
 
-## Troubleshooting
+### 交叉编译
+#### 交叉编译Openssl
+```bash
+git clone https://github.com/qhuyduong/openssl-1.0.2l.git
+cd openssl-1.0.2l/
+./Configure --prefix=/tmp/openssl os/compiler:$TOOLCHAIN_PREFIX-gcc
+make && make install
+cd -
+```
+
+#### 交叉编译arm_adb
+```bash
+git clone https://github.com/qhuyduong/arm_adb
+cd arm_adb
+./configure --host=$TOOLCHAIN_PREFIX --includedir=/tmp/openssl/include --libdir=/tmp/openssl/lib
+make
+```
+
+## 故障排除
 ### 1. WARNING: 'aclocal-1.xx' is missing on your system
-Run below command before configure
+在配置前执行以下命令：
 ```bash
-$ autoreconf -i --force
+autoreconf -i --force
 ```
 
-## Donation
-If this project helps you reduce time to develop, you can give me a cup of coffee :)
+## 捐赠
+如果该项目对你的开发有帮助, 请原作者喝杯咖啡吧 :)
 
 [![Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q8BH5C48PA9SC)
