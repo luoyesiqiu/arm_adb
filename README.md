@@ -91,6 +91,7 @@ autoreconf -i --force
 ```
 
 ## 捐赠
+
 如果该项目对你的开发有帮助, 请原作者喝杯咖啡吧 :)
 
 [![Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Q8BH5C48PA9SC)
